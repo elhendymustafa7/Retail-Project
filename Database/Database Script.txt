@@ -1,0 +1,32 @@
+      CREATE DATABASE [Retail-Api];
+
+      CREATE TABLE [AuditTrail] (
+          [AuditTrailID] int NOT NULL IDENTITY,
+          [ProductName] nvarchar(max) NOT NULL,
+          [Action] nvarchar(max) NOT NULL,
+          [ActionDate] datetime2 NOT NULL,
+          CONSTRAINT [PK_AuditTrail] PRIMARY KEY ([AuditTrailID])
+      );
+      CREATE TABLE [Categories] (
+          [Id] int NOT NULL IDENTITY,
+          [Name] nvarchar(max) NOT NULL,
+          [Description] nvarchar(max) NOT NULL,
+          CONSTRAINT [PK_Categories] PRIMARY KEY ([Id])
+      );
+      CREATE TABLE [stocks] (
+          [Id] int NOT NULL IDENTITY,
+          [Name] nvarchar(max) NOT NULL,
+          [capacity] int NOT NULL,
+          [Address] nvarchar(max) NOT NULL,
+          CONSTRAINT [PK_stocks] PRIMARY KEY ([Id])
+      );
+      CREATE TABLE [Products] (
+          [Name] nvarchar(450) NOT NULL,
+          [Description] nvarchar(max) NOT NULL,
+          [Price] decimal(18,2) NOT NULL,
+          [Quantity] int NOT NULL,
+          [CategoryID] int NOT NULL,
+          CONSTRAINT [PK_Products] PRIMARY KEY ([Name]),
+          CONSTRAINT [FK_Products_Categories_CategoryID] FOREIGN KEY ([CategoryID]) REFERENCES [Categories] ([Id]) ON DELETE CASCADE
+      );
+      
