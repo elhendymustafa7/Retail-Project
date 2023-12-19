@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Category Page";
+}
+
+<div class="container mt-5">
+    <div>
+        <a href="@Url.Action("Create", "Category")" class="btn btn-primary btn-sm">Add New Category</a>
+    </div>
+    <br />
+
+
+    <div id="simpleReport" class="mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="reportBody">
+                @foreach (var Category in Model)
+                {
+                    <tr>
+                        <th>@Category.Name</th>
+                        <th>@Category.Description</th>
+                        <th><a href="@Url.Action("Edit", "Category", new {id = Category.Id})" class="btn btn-secondary btn-sm">Edit</a></th>
+                        <th><a href="@Url.Action("Delete", "Category",new {id = Category.Id})" class="btn btn-danger btn-sm">Delete</a></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+﻿@using Retail_Api.Models;
+
+@model IEnumerable<Stock>
+@{
+    ViewData["Title"] = "Stocks Page";
+}
+
+<div class="container mt-5">
+    <div>
+        <a href="@Url.Action("Create", "Stocks")" class="btn btn-primary btn-sm">Add New Stocks</a>
+    </div>
+    <br />
+
+
+    <div id="simpleReport" class="mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">capacity</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="reportBody">
+                @foreach (var stock in Model)
+                {
+                    <tr>
+                        <th>@stock.Name</th>
+                        <th>@stock.Address</th>
+                        <th>@stock.capacity</th>
+                        <th><a href="@Url.Action("Editx", "Stocks",new {id = stock.Id})" class="btn btn-secondary btn-sm">Edit</a></th>
+                        <th><a href="@Url.Action("Delete", "Stocks",new {id = stock.Id})" class="btn btn-danger btn-sm">Delete</a></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

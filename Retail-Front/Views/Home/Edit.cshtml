@@ -1,0 +1,43 @@
+﻿@using Retail_Api.Models;
+@model ProductDto
+@{
+    ViewData["Title"] = "Edit Page";
+}
+<div id="addProductForm" class="mt-4">
+    <h3>Edit Product</h3>
+
+    <form asp-controller="Home" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" asp-for="Name" class="form-control" value="@Model.Name">
+        </div>
+        <div class="form-group">
+            <label for="productName">Product Description</label>
+            <input type="text" asp-for="Description" class="form-control" value="@Model.Description">
+        </div>
+        <div class="form-group">
+            <label for="productName">Product Price</label>
+            <input type="text" asp-for="Price" class="form-control"  value="@Model.Price" >
+        </div>
+        <div class="form-group">
+            <label for="productName">Product Quantity</label>
+            <input type="text" asp-for="Quantity" class="form-control"   value="@Model.Quantity">
+        </div>
+        <div class="form-group">
+            <label for="productName">Product category</label>
+            <input type="text" asp-for="CategoryID" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="productName">Product stock</label>
+
+            <select asp-for="stockId" multiple class="form-control" id="exampleFormControlSelect2">
+                @foreach (var item in ViewBag.StockItems)
+                {
+                    <option value="@item.Key">@item.Value</option>
+
+                }
+            </select>
+        </div>
+        <button type="submit"  class="btn btn-primary">Submit</button>
+    </form>
+</div>

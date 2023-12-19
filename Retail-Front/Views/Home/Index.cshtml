@@ -1,0 +1,92 @@
+﻿
+
+@using Retail_Api.Models;
+@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div>
+        <a href="@Url.Action("Add", "Home")" class="btn btn-primary btn-sm">Add New Product</a>
+    </div>
+    <br />
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" onclick="sortByName()">Sort by Name</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="sortByPrice()">Sort by Price</button>
+        </div>
+        <input type="text" class="form-control" placeholder="Filter" oninput="filterProducts(this.value)" aria-label="" aria-describedby="basic-addon1">
+    </div>
+
+    <div id="simpleReport" class="mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="reportBody">
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <th>@product.Name</th>
+                        <th>@product.Quantity</th>
+                        <th>@product.Price$</th>
+                        <th>@product.Description</th>
+                        <th><a href="@Url.Action("Edit", "Home", new { productName = product.Name })" class="btn btn-secondary btn-sm">Edit</a></th>
+                        <th><a href="@Url.Action("Delete", "Home", new { productName = product.Name })" class="btn btn-danger btn-sm">Delete</a></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function filterProducts(filterValue) {
+        // Convert filterValue to lowercase for case-insensitive comparison
+        filterValue = filterValue.toLowerCase();
+
+        $("#reportBody tr").each(function () {
+            var productName = $(this).find("th:first").text().toLowerCase();
+            var price = $(this).find("th:nth-child(3)").text().toLowerCase();
+
+            // Show/hide rows based on filter
+            if (productName.includes(filterValue) || price.includes(filterValue)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+
+    function sortByName() {
+        // Sort rows by product name
+        var rows = $("#reportBody tr").get();
+        rows.sort(function (a, b) {
+            var aText = $(a).find("th:first").text().toLowerCase();
+            var bText = $(b).find("th:first").text().toLowerCase();
+            return aText.localeCompare(bText);
+        });
+        $("#reportBody").empty().append(rows);
+    }
+
+    function sortByPrice() {
+        // Sort rows by price
+        var rows = $("#reportBody tr").get();
+        rows.sort(function (a, b) {
+            var aText = $(a).find("th:nth-child(3)").text().toLowerCase();
+            var bText = $(b).find("th:nth-child(3)").text().toLowerCase();
+            return parseFloat(aText) - parseFloat(bText);
+        });
+        $("#reportBody").empty().append(rows);
+    }
+</script>

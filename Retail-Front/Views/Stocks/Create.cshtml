@@ -1,0 +1,24 @@
+﻿@using Retail_Api.DTO;
+@model StockDto
+@{
+    ViewData["Title"] = "Create stocks";
+}
+
+<div  class="mt-4">
+    <h3>Add New Stocks</h3>
+    <form asp-controller="Stocks" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="productName">stock Name</label>
+            <input type="text" asp-for="Name" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="productName"> addrees</label>
+            <input type="text" asp-for="Address" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="productName"> capacity</label>
+            <input type="text" asp-for="capacity" class="form-control" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div
